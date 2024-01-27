@@ -1,12 +1,14 @@
-# Використовуємо офіційний образ Nginx
+# Використовуємо офіційний образ Nginx з Docker Hub
 FROM nginx:latest
 
-# Копіюємо ваш конфігураційний файл в контейнер
-COPY nginx_config.conf /etc/nginx/conf.d/default.conf
+# Копіюємо наш конфігураційний файл у відповідну директорію
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-# Вказуємо, що слід використовувати порт 80
+# Копіюємо файли сайту в кореневу директорію Nginx
+COPY index.html /usr/share/nginx/html/index.html
+
+# Вказуємо експозицію порту 80
 EXPOSE 80
 
-# Запускаємо Nginx в foreground режимі
+# Команда для запуску Nginx при запуску контейнера
 CMD ["nginx", "-g", "daemon off;"]
-
