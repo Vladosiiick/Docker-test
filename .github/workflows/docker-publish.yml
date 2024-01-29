@@ -22,10 +22,10 @@ jobs:
     - name: Build and test Docker image
       run: |
         docker buildx create --use 
-        docker buildx build --platform linux/amd64,linux/arm64 -t vladosiiick/Dockerfile:latest .
-        docker run -it --rm vladosiiick/Dockerfile:latest sh -c "your-test-command"
+        docker buildx build --platform linux/amd64,linux/arm64 -t vladosiiick/ci:latest .
+        docker run -it --rm vladosiiick/ci:latest sh -c "your-test-command"
 
     - name: Push Docker image to Docker Hub
-      run: docker push vladosiiick/Dockerfile:latest
+      run: docker push vladosiiick/ci:latest
 
       
