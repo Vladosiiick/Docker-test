@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  build-and-publish:
+  build-test-deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -17,11 +17,15 @@ jobs:
       uses: docker/setup-buildx-action@v1
 
     - name: Login to Docker Hub
-      run: echo "${{ secrets.DOCKER_HUB_TOKEN }}" | docker login --username "${{ secrets.DOCKER_HUB_USERNAME }}" --password-stdin
+      run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login --username "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
 
-    - name: Build and push Docker image
+    - name: Build and test Docker image
       run: |
         docker buildx create --use
-        docker buildx build --platform linux/amd64,linux/arm64 -t vladosiiick/nginx:latest .
-        docker push vladosiiick/nginx:latest
+        docker buildx build --platform linux/amd64,linux/arm64 -t vladosiiick/ci:latest .
+        docker run -it --rm vladosiiick/ci:latest sh -c "your-test-command"
+
+    - name: Push Docker image to Docker Hub
+      run: docker push your-dockerhub-username/your-image-name:latest
+
       
