@@ -23,9 +23,9 @@ jobs:
       run: |
         docker buildx create --use 
         docker buildx build --platform linux/amd64,linux/arm64 -t vladosiiick/ci:latest .
-        docker run -it --rm vladosiiick/ci:latest sh -c "your-test-command"
+     
 
     - name: Push Docker image to Docker Hub
-            docker push vladosiiick/ci:latest
+      run: docker push vladosiiick/ci:latest
 
       
