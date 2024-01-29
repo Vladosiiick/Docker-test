@@ -26,6 +26,6 @@ jobs:
         docker run -it --rm vladosiiick/ci:latest sh -c "your-test-command"
 
     - name: Push Docker image to Docker Hub
-      run: docker push vladosiiick/ci:latest
+            docker push vladosiiick/ci:latest
 
       
