@@ -22,12 +22,9 @@ jobs:
     - name: Build and test Docker image
       run: |
         docker buildx create --use 
-         uses: docker/build-push-action@v2
-        with:
-          context: ./
-          file: ./Dockerfile
-          push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/docker-file:latest
+        docker buildx build --platform linux/amd64,linux/arm64 -t vladyslav/ci:latest .
+        docker run -it --rm vladyslav/ci:latest sh -c "your-test-command"
+
     - name: Push Docker image to Docker Hub
-      run: docker push ${{ secrets.DOCKER_HUB_USERNAME }}/docker-test:latest
+      run: docker push vladuslav/ci:latest
       
